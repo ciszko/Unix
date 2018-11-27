@@ -1,0 +1,37 @@
+#!/bin/bash
+
+error=`tput setaf 1`
+green=`tput setaf 2`
+file=`tput setaf 4`
+reset=`tput sgr 0`
+
+success=0
+
+if [[ $1 == */ ]] ; then
+	if [ -n "$2" ] ; then
+		ilosc=$(find $1 -maxdepth 1 -type l | wc -l)
+		if [ $ilosc -eq 0 ]; then
+			echo "${error}Nie znaleziono dowiazan w folderze${reset}"
+		else
+			echo "${green}Znaleziono $ilosc dowiazania${reset}"
+			for (( i = 1; i <= ilosc; i++)); do
+				plik=$(find $1 -maxdepth 1 -type l | head -$i | tail -1)
+				if [ -w $plik ]; then
+					rm -iv $plik >>$2		
+				else
+					echo "${error}Brak praw dostepu do pliku:${file}$plik${reset}"
+				fi
+			done
+			success=$(wc -l < $2)
+			if [ $success -eq 0 ]; then
+				echo "${error}Nie usunieto zadnego pliku${reset}"
+			else	
+				echo "${green}Usunieto $success plikow${reset}"
+			fi
+		fi
+	else
+		echo "${error}Podaj drugi argument bedacy nazwa pliku do ktorego zostana zapisane wyniki"
+	fi	
+else
+	echo "${error}Podaj poprawna sciezke do folderu konczaca sie /${reset}"
+fi

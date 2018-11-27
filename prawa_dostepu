@@ -1,0 +1,29 @@
+#!/bin/bash
+#kolory
+error=`tput setaf 1`
+green=`tput setaf 2`
+file=`tput setaf 4`
+reset=`tput sgr 0`
+
+#sprawdzenie czy 1 argument jest prawidlowy
+if [[ $1  =~ ^[0124567][0124567][0124567] ]]; then
+	for ((i=2; i<=$#; i++)); do
+		plik=${!i}
+		#sprawdzenie czy plik istnieje
+		if [ -e $plik ]; then
+			#sprawdzenie czy mamy prawa do pliku
+			if [ -w $plik ]; then	
+				chmod $1 ${!i}
+				echo "${green}Zmieniono prawa do pliku:${file}${!i}${reset}"
+			else
+				echo "${error}Brak praw do pliku: ${file}${!i}${reset} "
+			fi
+		else
+			echo "${error}Nie znaleziono pliku: ${file}${!i}${reset}"
+		fi
+	done
+else	#niepoprawny format praw - 1 argument
+	echo "${error}Niepoprawny format praw do pliku${reset}"
+	echo "Musza to byc 3 cyfry ze zbioru {0,1,2,4,5,6,7}"
+	exit 1
+fi
