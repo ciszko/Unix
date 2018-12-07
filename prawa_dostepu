@@ -6,13 +6,13 @@ file=`tput setaf 4`
 reset=`tput sgr 0`
 
 #sprawdzenie czy 1 argument jest prawidlowy
-if [[ $1  =~ ^[0124567][0124567][0124567] ]]; then
+if [[ $1  =~ ^[01234567][01234567][01234567] ]]; then
 	for ((i=2; i<=$#; i++)); do
 		plik=${!i}
 		#sprawdzenie czy plik istnieje
 		if [ -e $plik ]; then
 			#sprawdzenie czy mamy prawa do pliku
-			if [ -w $plik ]; then	
+			if [ -x $plik ]; then	
 				chmod $1 ${!i}
 				echo "${green}Zmieniono prawa do pliku:${file}${!i}${reset}"
 			else
