@@ -19,7 +19,7 @@ fi
 			#sprawdzenie czy plik istnieje
 			if [ -e $plik ]; then
 				#sprawdzenie czy mamy prawa do odczytu
-					if [ -w $plik ]; then
+					if [ -r $plik ]; then
 						#sprawdzenie czy plik nie jest pusty
 						if [ -s $plik ]; then
 							#sprawdzenie czy plik jest zwykły
