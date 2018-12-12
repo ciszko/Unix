@@ -5,6 +5,10 @@ green=`tput setaf 2`
 file=`tput setaf 4`
 reset=`tput sgr 0`
 
+if [ $# -lt 2 ]; then
+	echo "${error}Minimalna liczba argumentow to 2"
+	echo "Przyklad: 777 plik${reset}"
+fi
 #sprawdzenie czy 1 argument jest prawidlowy
 if [[ $1  =~ ^[01234567][01234567][01234567] ]]; then
 	for ((i=2; i<=$#; i++)); do
