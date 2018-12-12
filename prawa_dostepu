@@ -7,7 +7,7 @@ reset=`tput sgr 0`
 
 if [ $# -lt 2 ]; then
 	echo "${error}Minimalna liczba argumentow to 2"
-	echo "Przyklad: 777 plik${reset}"
+	echo "Przyklad: 741 plik${reset}"
 	exit 1
 fi
 #sprawdzenie czy 1 argument jest prawidlowy
