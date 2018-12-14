@@ -14,10 +14,11 @@ if [[ $1 == */ ]] ; then
 			echo "${error}Nie znaleziono dowiazan w folderze${reset}"
 		else
 			echo "${green}Znaleziono $ilosc dowiazania${reset}"
+			dowiazania=$(find $1 -maxdepth 1 -type l)
 			for (( i = 1; i <= ilosc; i++)); do
-				plik=$(find $1 -maxdepth 1 -type l | head -$i | tail -1)
+				plik=$(echo "$dowiazania" | head -$i | tail -1)
 				if [ -w $plik ]; then
-					rm -iv $plik >>$2		
+					rm -iv $plik >>$2
 				else
 					echo "${error}Brak praw dostepu do pliku:${file}$plik${reset}"
 				fi
